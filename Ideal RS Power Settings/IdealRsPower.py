@@ -43,7 +43,7 @@ df_rs = df_rs.round({'RS Power (dBm)': 1})
 print('\n')
 print(f'Ideal RS Power Settings for BW: {bw} MHz & Tx Power Per Port: {tx} dBm are:')
 print('\n')
-print(df_rs.to_string(index = False))
+print(df_rs.to_string())
 print('\n')
 
 #Best Options for RS Power in Selecteed System Bandwidth
@@ -62,7 +62,6 @@ df_rs_options['46'] = power4-(10*math.log(subcarrier,10)) - df_rs_options['Pa (d
 
 df_rs_options.drop(columns=['Pa (dB)'], inplace = True)
 df_rs_options.drop(columns=['Pb'], inplace = True)
-#print(df_rs_options.to_string(index = False))
 
 #3D Plotting
 
@@ -86,7 +85,8 @@ zpos=np.zeros(df_rs_options.shape).flatten()
 #the bars' heights
 dz = df_rs_options.values.ravel()
 #plot
-ax.bar3d(xpos,ypos,zpos,dx,dy,dz)
+colors = plt.cm.jet(dz/dz.max())
+ax.bar3d(xpos,ypos,zpos,dx,dy,dz,color = colors)
 #put the column / index labels
 papb_combination = ['Pa0 Pb0','Pa-3 Pb1','Pa-4.77 Pb2','Pa-6 Pb3']
 ax.w_xaxis.set_ticklabels(papb_combination)
@@ -96,6 +96,27 @@ ax.set_xlabel('Pa Pb Combination', fontsize = 10)
 ax.set_ylabel('Tx Power per Port (dBm)', fontsize = 10)
 ax.set_zlabel('RS Power (dBm)', fontsize = 10)
 plt.title(f'Ideal RS Power (dBm) settings for {bw} MHz Bandwidth', fontsize = 15)
+
+#Line Plotting
+
+fig = plt.figure()
+
+power1 = df_rs_options['40'].values.tolist()
+power2 = df_rs_options['43'].values.tolist()
+power3 = df_rs_options['44.7'].values.tolist()
+power4 = df_rs_options['46'].values.tolist()
+
+plt.plot(power1, label="40 dBm", ls = '--', marker = 'o')
+plt.plot(power2, label="43 dBm", ls = '--', marker = 'v')
+plt.plot(power3, label="44.7 dBm", ls = '--', marker = 's')
+plt.plot(power4, label="46 dBm", ls = '--', marker = 'p')
+
+plt.xticks(np.arange(0, 4, 1))
+plt.xlabel('Pa Pb Combination', fontsize = 10)
+plt.ylabel('RS Power (dBm)', fontsize = 10)
+plt.title(f'Ideal RS Power (dBm) settings for {bw} MHz Bandwidth', fontsize = 15)
+plt.legend()
+plt.grid()
 
 plt.show()
 
