@@ -19,9 +19,9 @@ Roughly, 3D representation of DL power ratio can be seen as below figure:
 <img src="https://github.com/zulfadlizainal/4G-LTE-DL-Power-Allocation/blob/master/img/IdealRS_Explain03.png" alt="Example" title="Example" width=100% height=100% />
 <br />
 
-### Reference
+### Calculation
 
-Simple Math of the ratio concept can be calculated as follows:
+Simple Math of the ratio concept.
 <br />
 <br />
 <img src="https://github.com/zulfadlizainal/4G-LTE-DL-Power-Allocation/blob/master/img/IdealRS_Explain04.png" alt="Calc" title="Calc" width=100% height=100% />
